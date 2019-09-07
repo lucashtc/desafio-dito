@@ -54,7 +54,7 @@ func (a apiServer) autocomplete(w http.ResponseWriter, r *http.Request){
 
 	event := Event{}
 	if err = json.Unmarshal(body, &event); err != nil{
-		http.Error(w,"Falha interna",http.StatusInternalServerError)
+		http.Error(w,"Json invalido",http.StatusInternalServerError)
 		log.Println(err)
 		return
 	}
