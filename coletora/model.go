@@ -3,6 +3,6 @@ package coletora
 
 // Event ...
 type Event struct {
-	Name     string `json:"event"`
+	Event     string `json:"event"`
 	Timestamp string `json:"timestamp"`
 }

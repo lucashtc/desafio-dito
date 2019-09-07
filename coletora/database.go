@@ -4,37 +4,44 @@ import (
 	"fmt"
 	"github.com/jinzhu/gorm"
 	"github.com/pkg/errors"
-	
-	// drive mysql for connection 
-	_"github.com/jinzhu/gorm/dialects/mysql"
+
+	// drive mysql for connection
+	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
 // Conn return connection instance.
-func Conn() (*gorm.DB,error){
+func Conn() (*gorm.DB, error) {
 	db, err := gorm.Open("mysql", "root@/dito?charset=utf8")
 	if err != nil {
-		return nil,err
+		return nil, err
 	}
-	return db,err
+	return db, err
 }
 
 // Insert ...
-func Insert(con *gorm.DB,values Event) (error){
+func Insert(con *gorm.DB, values Event) error {
 	con.Create(&values)
 	if con.Error != nil {
-		return errors.Wrap(con.Error,"falha ao fazer insert")
+		return errors.Wrap(con.Error, "falha ao fazer insert")
 	}
 	defer con.Close()
-	return nil;
+	return nil
 }
 
 // Get ...
-func Get(con *gorm.DB,name string) ([]Event, error){
-	events := []Event{}
+func Get(con *gorm.DB, name string) ([]string, error) {
+	events := []string{}
 	name = fmt.Sprint("%" + name + "%")
-	con.Where("NAME LIKE ?",name ).Select("DISTINCT(NAME)").Find(&events)
-	if con.Error != nil {
-		return nil,con.Error
+
+	rows, err := con.Raw("select DISTINCT(EVENT) from events where EVENT LIKE ?", name).Rows()
+	if err != nil {
+		return nil, err
 	}
-	return events,nil
+	defer rows.Close()
+
+	for rows.Next() {
+		rows.Scan(&name)
+		events = append(events, name)
+	}
+	return events, nil
 }
