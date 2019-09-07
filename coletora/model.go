@@ -1,10 +1,8 @@
 package coletora
-import (
-	"github.com/jinzhu/gorm"
-)
 
-type Colector struct {
-	gorm.Model
-	Event     string `json:"event"`
+
+// Event ...
+type Event struct {
+	Name     string `json:"event"`
 	Timestamp string `json:"timestamp"`
 }
