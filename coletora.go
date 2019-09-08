@@ -1,7 +1,7 @@
 package main
 
 import(
-	"github.com/lucashtc/desafio-dito/coletora"
+	"github.com/lucashtc/desafio-dito/autocomplete"
 )
 
 func main(){
