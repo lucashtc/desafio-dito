@@ -6,24 +6,39 @@
     <meta charset="utf-8">
     <script src="static/jquery-3.4.1.min.js"></script>
     </header>
-    <body>
-        <input type="text" id="autocomplete">
-    </body>
-    <script>
-        $(document).ready(function(){
-            var result;
-            $('#autocomplete').on("change",function(){
-                var name = $("#autocomplete").val()
-                $.ajax({
-                    type: "POST",
-                    url: "autocomplete_api",
-                    dataType: "json",
-                    data: JSON.stringify({'event': name}),
-                    success: function(e){
-                        result = e;
-                    },
-                });
-                })
+
+<body>
+    <div class="auto">
+        <input type="text" id="autocomplete" />
+        <div id="box"></div>
+    </div>
+</body>
+<script>
+    // AJAX call for autocomplete 
+    $(document).ready(function () {
+        $("#autocomplete").keyup(function () {
+            $.ajax({
+                type: "POST",
+                url: "autocomplete_api",
+                dataType: "json",
+                data: JSON.stringify({ 'event': $("#autocomplete").val() }),
+                success: function (data) {
+                    var html = "";
+                    for (var i = 0; i < data.length; i++) {
+                        html += "<ul id='country-list'><li onclick=select('" + data[i] + "')>" + data[i] + "</li></ul> ";
+                    }
+                    $("#box").show();
+                    $("#box").html(html)
+                    $("#autocomplete").css("background", "#FFF");
+                }
+            });
         });
-    </script>
+    });
+
+    function select(val) {
+        $("#autocomplete").val(val);
+        $("#box").hide();
+    }
+</script>
+
 </html>
