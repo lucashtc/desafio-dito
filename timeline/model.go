@@ -1,9 +1,12 @@
-package  timeline
+package timeline
 
+// Products ..
 type Products struct {
 	Name  string `json:"name"`
 	Price int    `json:"price"`
 }
+
+// Timeline ...
 type Timeline struct {
 	Timestamp     string     `json:"timestamp"`
 	Revenue       float64    `json:"revenue"`
@@ -12,15 +15,18 @@ type Timeline struct {
 	Products      []Products `json:"products"`
 }
 
-
+// Events ...
 type Events struct {
 	Events []Event `json:"events"`
 }
 
+// CustomData ...
 type CustomData struct {
 	Key   string      `json:"key"`
 	Value interface{} `json:"value"`
 }
+
+// Event ...
 type Event struct {
 	Event      string       `json:"event"`
 	Timestamp  string       `json:"timestamp"`

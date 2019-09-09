@@ -1,4 +1,4 @@
-package coletora
+package autocomplete
 
 
 // Event ...

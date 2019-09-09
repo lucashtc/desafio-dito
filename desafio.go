@@ -1,14 +1,23 @@
 package main
 
 import (
-	//"github.com/lucashtc/desafio-dito/autocomplete"
-	"github.com/lucashtc/desafio-dito/timeline"
 	"log"
+	"net/http"
+
+	"github.com/lucashtc/desafio-dito/autocomplete"
+	"github.com/lucashtc/desafio-dito/timeline"
 )
 
 func main() {
-	//coletora.InitServer()
-	if err := timeline.TimelineOrder(); err != nil {
-		log.Fatal(err)
-	}
+	server := autocomplete.ApiServer{}
+	server.Port = ":8080"
+
+	http.HandleFunc("/autocomplete_api", server.AutocompleteApi)
+	http.HandleFunc("/autocomplete", server.Autocomplete)
+	http.HandleFunc("/get", server.Get)
+	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./pages"))))
+	http.HandleFunc("/timeline", timeline.TimelineHand)
+
+	log.Fatal(http.ListenAndServe(server.Port, nil))
+
 }

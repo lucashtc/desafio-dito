@@ -1,21 +1,23 @@
-package coletora
+package autocomplete
 
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/pkg/errors"
 	"io"
 	"io/ioutil"
 	"log"
 	"net/http"
+
+	"github.com/pkg/errors"
 )
 
-type apiServer struct {
+// ApiServer ...
+type ApiServer struct {
 	Port string
 }
 
-// endpoint para receber json event de compra e salvar em banco
-func (a apiServer) Get(w http.ResponseWriter, r *http.Request) {
+// Get endpoint para receber json event de compra e salvar em banco
+func (a ApiServer) Get(w http.ResponseWriter, r *http.Request) {
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		http.Error(w, "Falha interna", http.StatusInternalServerError)
@@ -44,7 +46,7 @@ func (a apiServer) Get(w http.ResponseWriter, r *http.Request) {
 	io.WriteString(w, "Salvo")
 }
 
-func (a apiServer) autocompleteApi(w http.ResponseWriter, r *http.Request) {
+func (a ApiServer) AutocompleteApi(w http.ResponseWriter, r *http.Request) {
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		http.Error(w, "Falha interna", http.StatusInternalServerError)
@@ -84,23 +86,10 @@ func (a apiServer) autocompleteApi(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
-func (a apiServer) autocomplete(w http.ResponseWriter, r *http.Request) {
+func (a ApiServer) Autocomplete(w http.ResponseWriter, r *http.Request) {
 	page, err := ioutil.ReadFile("./pages/autocomplete.html")
 	if err != nil {
 		http.Error(w, "Falha ao encontrar pagina", http.StatusBadRequest)
 	}
 	io.WriteString(w, string(page))
-}
-
-// InitServer ...
-func InitServer() {
-	server := apiServer{}
-	server.Port = ":8080"
-
-	http.HandleFunc("/autocomplete_api", server.autocompleteApi)
-	http.HandleFunc("/autocomplete", server.autocomplete)
-	http.HandleFunc("/get", server.Get)
-	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./pages"))))
-
-	log.Fatal(http.ListenAndServe(server.Port, nil))
 }
