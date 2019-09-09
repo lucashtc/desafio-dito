@@ -1,0 +1,1 @@
+curl -d '{"event": "com"'} -X POST http://localhost:8080/autocomplete_api -w '%{time_starttransfer}\n'
