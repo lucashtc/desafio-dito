@@ -55,8 +55,8 @@ func (a ApiServer) AutocompleteApi(w http.ResponseWriter, r *http.Request) {
 
 	event := Event{}
 	if err = json.Unmarshal(body, &event); err != nil {
-		http.Error(w, "Json invalido", http.StatusInternalServerError)
-		log.Println(err)
+		errString := fmt.Sprint(errors.Wrap(err, "falha"))
+		http.Error(w, errString, http.StatusInternalServerError)
 		return
 	}
 
@@ -72,13 +72,15 @@ func (a ApiServer) AutocompleteApi(w http.ResponseWriter, r *http.Request) {
 
 	con, err := Conn()
 	if err != nil {
-		log.Println(errors.Wrap(err, "falha ao conectar ao banco"))
+		errString := fmt.Sprint(errors.Wrap(err, "falha ao conectar ao banco"))
+		http.Error(w, errString, http.StatusInternalServerError)
 		return
 	}
 
 	Name, err := Get(con, event.Event)
 	if err != nil {
-		log.Println(errors.Wrap(err, "Falha ao obter resultado"))
+		errString := fmt.Sprint(errors.Wrap(err, "Falha ao obter resultado"))
+		http.Error(w, errString, http.StatusInternalServerError)
 		return
 	}
 	fmt.Println(Name)

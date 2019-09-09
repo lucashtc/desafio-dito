@@ -2,15 +2,18 @@ package timeline
 
 import (
 	"encoding/json"
-	"log"
+	"fmt"
 	"net/http"
+
+	"github.com/pkg/errors"
 )
 
 // TimelineHand ...
 func TimelineHand(w http.ResponseWriter, r *http.Request) {
 	t, err := timelineEvents()
 	if err != nil {
-		log.Fatal(err)
+		errString := fmt.Sprint(errors.Wrap(err, "Falha"))
+		http.Error(w, errString, http.StatusInternalServerError)
 	}
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
