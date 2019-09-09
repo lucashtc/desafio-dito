@@ -2,6 +2,7 @@ package autocomplete
 
 import (
 	"fmt"
+
 	"github.com/jinzhu/gorm"
 	"github.com/pkg/errors"
 
@@ -11,7 +12,7 @@ import (
 
 // Conn return connection instance.
 func Conn() (*gorm.DB, error) {
-	db, err := gorm.Open("mysql", "root@/dito?charset=utf8")
+	db, err := gorm.Open("mysql", "root:password@tcp(db:3306)/dito?charset=utf8")
 	if err != nil {
 		return nil, err
 	}
