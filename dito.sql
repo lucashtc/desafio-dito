@@ -1,6 +1,4 @@
-USE `dito`;
-
--- Copiando estrutura para tabela dito.events
+USE `dito`
 DROP TABLE IF EXISTS `events`;
 CREATE TABLE IF NOT EXISTS `events` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
@@ -9,7 +7,7 @@ CREATE TABLE IF NOT EXISTS `events` (
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=142 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela dito.events: ~61 rows (aproximadamente)
+-- Copiando dados para a tabela dito.events: ~59 rows (aproximadamente)
 /*!40000 ALTER TABLE `events` DISABLE KEYS */;
 INSERT INTO `events` (`ID`, `EVENT`, `TIMESTAMP`) VALUES
 	(2, 'comprou-produto', '2019-09-07 00:05:56'),
@@ -36,43 +34,7 @@ INSERT INTO `events` (`ID`, `EVENT`, `TIMESTAMP`) VALUES
 	(102, 'buy', '2019-09-07 11:38:29'),
 	(103, 'buy', '2019-09-07 11:38:29'),
 	(104, 'buy', '2019-09-07 11:38:29'),
-	(105, 'buy', '2019-09-07 11:38:29'),
-	(106, 'comprou-camisa', '0000-00-00 00:00:00'),
-	(107, 'comprou-camisa', '0000-00-00 00:00:00'),
-	(108, 'comprou-camisa', '0000-00-00 00:00:00'),
-	(109, 'comprou-camisa', '0000-00-00 00:00:00'),
-	(110, 'comprou-camisa', '0000-00-00 00:00:00'),
-	(111, 'comprou-camisa', '0000-00-00 00:00:00'),
-	(112, 'comprou-camisa', '0000-00-00 00:00:00'),
-	(113, 'comprou-camisa', '0000-00-00 00:00:00'),
-	(114, 'comprou-camisa', '0000-00-00 00:00:00'),
-	(115, 'comprou-camisa', '0000-00-00 00:00:00'),
-	(116, 'comprou-camisa', '0000-00-00 00:00:00'),
-	(117, 'comprou-camisa', '0000-00-00 00:00:00'),
-	(118, 'comprou-camisa', '0000-00-00 00:00:00'),
-	(119, 'comprou-camisa', '0000-00-00 00:00:00'),
-	(120, 'comprou-camisa', '0000-00-00 00:00:00'),
-	(121, 'comprou-camisa', '0000-00-00 00:00:00'),
-	(122, 'comprou-camisa', '0000-00-00 00:00:00'),
-	(123, 'comprou-camisa', '0000-00-00 00:00:00'),
-	(124, 'comprou-camisa', '0000-00-00 00:00:00'),
-	(125, 'comprou-camisa', '0000-00-00 00:00:00'),
-	(126, 'comprou-camisa', '0000-00-00 00:00:00'),
-	(127, 'comprou-camisa', '0000-00-00 00:00:00'),
-	(128, 'comprou-camisa', '0000-00-00 00:00:00'),
-	(129, 'comprou-camisa', '0000-00-00 00:00:00'),
-	(130, 'comprou-camisa', '0000-00-00 00:00:00'),
-	(131, 'comprou-camisa', '0000-00-00 00:00:00'),
-	(132, 'comprou-camisa', '0000-00-00 00:00:00'),
-	(133, 'comprou-camisa', '0000-00-00 00:00:00'),
-	(134, 'comprou-camisa', '0000-00-00 00:00:00'),
-	(135, 'comprou-camisa', '0000-00-00 00:00:00'),
-	(136, 'comprou-camisa', '0000-00-00 00:00:00'),
-	(137, 'comprou-camisa', '0000-00-00 00:00:00'),
-	(138, 'buy', '2019-09-07 16:27:17'),
-	(139, 'buy', '2019-09-07 16:27:30'),
-	(140, 'com', '0000-00-00 00:00:00'),
-	(141, 'comprou-produto', '0000-00-00 00:00:00');
+	(105, 'buy', '2019-09-07 11:38:29');
 /*!40000 ALTER TABLE `events` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

@@ -6,13 +6,15 @@ services:
       dockerfile: ./docker/web/Dockerfile
     ports:
     - "8080:8080"
-    depends_on:
-      - db
-  db:
-    build:
-      context: .
-      dockerfile: ./docker/db/Dockerfile
-    restart: always
-    ports:
-      - '3306:3306'
-    tty: true
+    # depends_on:
+    #   - db
+  # db:
+  #   build:
+  #     context: .
+  #     dockerfile: ./docker/db/Dockerfile
+  #   restart: always
+  #   ports:
+  #     - '3306:3306'
+  #   tty: true
+  #   #command: mysql -u root -ppassword dito < /docker-entrypoint-initdb.d/dito.sql
+  #   command: ["mysql","-u", "root", "-ppassword","dito", " < ","/docker-entrypoint-initdb.d/dito.sql"]
