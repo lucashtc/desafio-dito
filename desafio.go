@@ -9,10 +9,11 @@ import (
 )
 
 func main() {
-	server := autocomplete.ApiServer{}
+	server := autocomplete.APIServer{}
 	server.Port = ":8080"
 
-	http.HandleFunc("/autocomplete_api", server.AutocompleteApi)
+	http.HandleFunc("/migration", server.Migration)
+	http.HandleFunc("/autocomplete_api", server.AutocompleteAPI)
 	http.HandleFunc("/autocomplete", server.Autocomplete)
 	http.HandleFunc("/get", server.Get)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./pages"))))

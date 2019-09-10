@@ -11,13 +11,13 @@ import (
 	"github.com/pkg/errors"
 )
 
-// ApiServer ...
-type ApiServer struct {
+// APIServer ...
+type APIServer struct {
 	Port string
 }
 
 // Get endpoint para receber json event de compra e salvar em banco
-func (a ApiServer) Get(w http.ResponseWriter, r *http.Request) {
+func (a APIServer) Get(w http.ResponseWriter, r *http.Request) {
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		http.Error(w, "Falha interna", http.StatusInternalServerError)
@@ -46,7 +46,8 @@ func (a ApiServer) Get(w http.ResponseWriter, r *http.Request) {
 	io.WriteString(w, "Salvo")
 }
 
-func (a ApiServer) AutocompleteApi(w http.ResponseWriter, r *http.Request) {
+// AutocompleteAPI ...
+func (a APIServer) AutocompleteAPI(w http.ResponseWriter, r *http.Request) {
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		http.Error(w, "Falha interna", http.StatusInternalServerError)
@@ -63,7 +64,7 @@ func (a ApiServer) AutocompleteApi(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(200)
 
-	// Não faz pesquisa para resultao em branco
+	// Não faz pesquisa para resultado em branco
 	if event.Event == "" {
 		empty := make(map[string]string)
 		json.NewEncoder(w).Encode(empty)
@@ -88,10 +89,37 @@ func (a ApiServer) AutocompleteApi(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
-func (a ApiServer) Autocomplete(w http.ResponseWriter, r *http.Request) {
+// Autocomplete ...
+func (a APIServer) Autocomplete(w http.ResponseWriter, r *http.Request) {
 	page, err := ioutil.ReadFile("./pages/autocomplete.html")
 	if err != nil {
 		http.Error(w, "Falha ao encontrar pagina", http.StatusBadRequest)
 	}
 	io.WriteString(w, string(page))
+}
+
+// Migration ...
+func (a APIServer) Migration(w http.ResponseWriter, r *http.Request) {
+	con, err := Conn()
+	if err != nil {
+		errString := fmt.Sprint(errors.Wrap(err, "falha ao conectar ao banco"))
+		http.Error(w, errString, http.StatusInternalServerError)
+		return
+	}
+
+	err = MigrateCreateTable(con)
+	if err != nil {
+		errString := fmt.Sprint(errors.Wrap(err, "Falha ao criar tabela"))
+		http.Error(w, errString, http.StatusInternalServerError)
+		return
+	}
+
+	err = InsertMake(con)
+	if err != nil {
+		errString := fmt.Sprint(errors.Wrap(err, "Falha ao alimentar tabela"))
+		http.Error(w, errString, http.StatusInternalServerError)
+		return
+	}
+	fmt.Println("Deu Bom")
+	return
 }
