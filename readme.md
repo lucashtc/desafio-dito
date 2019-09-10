@@ -6,6 +6,7 @@
 docker-compose -f "docker-compose.yml" up -d --build 
 ```
 ## Criar base e alimentar com dados fake
+Será feito insert de 30.000 linhas na base
 ```bash
 curl  -X POST http://192.168.99.100:8080/migration
 ```

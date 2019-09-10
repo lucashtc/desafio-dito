@@ -62,15 +62,16 @@ func MigrateCreateTable(con *gorm.DB) error {
 func InsertMake(con *gorm.DB) error {
 	events := []Event{}
 
-	timestamp := time.Now().Format("2006-01-02T15:04:05.999999999Z07:00")
-	events = append(events, Event{Event: "comprou-produto", Timestamp: timestamp})
+	for i := 0; i < 30000; i++ {
+		timestamp := time.Now().Format("2006-01-02T15:04:05.999999999Z07:00")
+		events = append(events, Event{Event: "comprou-produto", Timestamp: timestamp})
 
-	timestamp = time.Now().Format("2006-01-02T15:04:05.999999999Z07:00")
-	events = append(events, Event{Event: "comprou", Timestamp: timestamp})
+		timestamp = time.Now().Format("2006-01-02T15:04:05.999999999Z07:00")
+		events = append(events, Event{Event: "comprou", Timestamp: timestamp})
 
-	timestamp = time.Now().Format("2006-01-02T15:04:05.999999999Z07:00")
-	events = append(events, Event{Event: "avaliou-produto", Timestamp: timestamp})
-
+		timestamp = time.Now().Format("2006-01-02T15:04:05.999999999Z07:00")
+		events = append(events, Event{Event: "avaliou-produto", Timestamp: timestamp})
+	}
 	var syncwait sync.WaitGroup
 
 	for _, e := range events {
