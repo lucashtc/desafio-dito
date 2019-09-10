@@ -17,6 +17,10 @@
     // AJAX call for autocomplete 
     $(document).ready(function () {
         $("#autocomplete").keyup(function () {
+            var autocomplete = $("#autocomplete").val()
+            if (autocomplete.length <= 2) {
+                return;
+            }
             $.ajax({
                 type: "POST",
                 url: "autocomplete_api",
