@@ -1,5 +1,5 @@
 # Desafio DITO
-##Instalação do banco <br>
+## Instalação do banco <br>
 Para banco de dados use mysql <br>
 O arquivo dito.sql possui script para criação e aliemtnação do banco de dados.<br>
 Configure o arquivo autocomplete/database.go informando o endereço ip(ou hostname) do banco,nome e usuário. <br>
