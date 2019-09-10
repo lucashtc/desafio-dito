@@ -1,22 +1,34 @@
+# Desafio DITO
+##Instalação do banco <br>
+Para banco de dados use mysql <br>
+O arquivo dito.sql possui script para criação e aliemtnação do banco de dados.<br>
+Configure o arquivo autocomplete/database.go informando o endereço ip(ou hostname) do banco,nome e usuário. <br>
+Use o seguinte comando para copilar o codigo GO e executar.
 
-::Instalação
-Para banco de dados use mysql usando o arquivo dito.sql para instalação do banco
-Configure o arquivo autocomplete/database.go informando o endereço ip do banco,nome e usuário. 
-e execute o segunte comando para executar a API
+```bash
+docker-compose -f "docker-compose.yml" up -d --build 
+```
+*apenas para executar codigo web server em GO/Golang <br>
+*banco por enquanto precisa ser instalado manualmente
 
-docker-compose -f "docker-compose.yml" up -d --build
-*apenas para executar codigo web server em GO/Golang
+## ENDPOINTS
 
-::ENDPOINTS
-
-::AUTOCOMPLETE API
+### AUTOCOMPLETE API
+```bash
 curl -d '{"event": "com"}' -X POST http://localhost:8080/autocomplete_api
+```
 
-::AUTOCOMPLETE hmtl
+### AUTOCOMPLETE hmtl
+```bash
 http://localhost:8080/get
+```
 
-::GET(Obtem um json com eventos de compra e salva no banco)
+### GET(Obtem um json com eventos de compra e salva no banco)
+```bash
 curl -d '{"event": "comprou-produto"}' -X POST http://localhost:8080/get
+```
 
-::TIMELINE
+### TIMELINE
+```bash
 curl -X POST http://localhost:8080/timeline
+```
