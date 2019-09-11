@@ -1,5 +1,6 @@
 FROM golang:1.13
 COPY . /go/src/lucas
 WORKDIR /go/src/lucas
-CMD go run desafio.go
+RUN go build -o dito
+CMD ./dito
 EXPOSE 8080
