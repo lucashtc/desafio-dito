@@ -1,6 +1,6 @@
-FROM golang:1.13
-COPY . /go/src/lucas
-WORKDIR /go/src/lucas
-RUN go build -o dito
-CMD ./dito
+FROM golang:1.13 as golang
+COPY . /app
+WORKDIR /app
+RUN GOOS=linux GOARCH=amd64 CGO_ENABLE=0 go build -ldflags="-w -s"
+CMD ./desafio-dito
 EXPOSE 8080
